@@ -10,6 +10,9 @@ connect.then((db) =>{
 const app=express()
 const PORT=5000
 
+app.use(express.json())
+app.use(require('./routes/auth'))
+
 app.get('/',(req,res)=>{
     res.send("Hello World")
 })
