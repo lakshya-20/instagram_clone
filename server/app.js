@@ -2,8 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 
-const url=require('./key');
-var connect=mongoose.connect(url);
+const {mongourl}=require('./key');
+var connect=mongoose.connect(mongourl);
 connect.then((db) =>{
   console.log('Connected correctly to mongodb');
 },(err)=>{console.log(err)});
