@@ -23,3 +23,19 @@ a{
   border-bottom: 1px solid rgb(8,93,252) !important;
   box-shadow: 0 1px 0 0 #000 !important;
 }
+
+.gallery{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.item{
+  width: 30%;
+  margin-bottom: 3%;
+}
+.home-card{
+  max-width: 800px;
+  height: max-content;
+  margin: 26px auto;
+}
