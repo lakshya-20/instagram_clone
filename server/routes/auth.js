@@ -14,8 +14,8 @@ router.get('/protected',requireLogin,(req,res)=>{
 
 router.post('/signup',(req,res)=>{
     const {name,email,password}=req.body
-    if(!name || !password || !email){
-        return res.send(422).json({error:"All fields required"})
+    if(!email || !password || !name){
+        res.status(422).json({error:"all entries required"})
     }
     User.findOne({email:email})
     .then((savedUser)=>{
@@ -60,7 +60,8 @@ router.post('/signin',(req,res)=>{
             if(doMatch){
                 //res.json({message:"Successfully signed in"})
                 const token=jwt.sign({_id:savedUser._id},JWT_SECRET)
-                res.json({token})
+                const {_id,name,email}=savedUser
+                res.json({token,user:{_id,name,email}})
             }
             else{
                 return res.status(422).json({error:"Invalid username or password"})
