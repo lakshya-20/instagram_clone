@@ -8,6 +8,7 @@ const Post =  mongoose.model("Post")
 router.get('/allpost',requireLogin,(req,res)=>{
     Post.find()
     .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
     .then((posts)=>{
         res.json({posts})
     }).catch(err=>{
@@ -41,6 +42,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
 router.get('/mypost',requireLogin,(req,res)=>{
     Post.find({postedBy:req.user._id})
     .populate("PostedBy","_id name")
+    .populate("comments.postedBy","_id name")
     .then(mypost=>{
         res.json({mypost})
     })
@@ -77,7 +79,7 @@ router.put('/unlike',requireLogin,(req,res)=>{
 })
 
 router.put('/comment',requireLogin,(req,res)=>{
-    const comment={
+    const comment = {
         text:req.body.text,
         postedBy:req.user._id
     }
@@ -87,6 +89,7 @@ router.put('/comment',requireLogin,(req,res)=>{
         new:true
     })
     .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
     .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
@@ -95,5 +98,6 @@ router.put('/comment',requireLogin,(req,res)=>{
         }
     })
 })
+
 
 module.exports=router
