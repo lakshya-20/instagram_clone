@@ -42,7 +42,7 @@ const Routing=()=>{
       <Route path="/create">
         <CreatePost />
       </Route>
-      <Route path="/profile/:userid">
+      <Route exact path="/profile/:userid">
         <UserProfile/>
       </Route>
     </Switch>

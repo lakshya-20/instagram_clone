@@ -7,7 +7,6 @@ const User = mongoose.model("User")
 
 
 router.get('/user/:id',requireLogin,(req,res)=>{
-    console.log("Entered")
     User.findOne({_id:req.params.id})
     .select("-password")
     .then(user=>{

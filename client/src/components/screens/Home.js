@@ -114,6 +114,7 @@ const Home =()=>{
         })
     }
 
+    
     return(
         <div className="home">
 
@@ -122,7 +123,7 @@ const Home =()=>{
                     return(
                         <div className="card home-card" key={item._id}>
                             <h5><Link to={item.postedBy._id !== state._id?"/profile/"+item.postedBy._id :"/profile"  }>{item.postedBy.name}</Link>
-                            {item.postedBy._id==state._id&&
+                            {item.postedBy._id==state._id &&
                             <i className="material-icons" style={{float:"right"}}
                             onClick={()=>{deletePost(item._id)}}
                             >delete</i>}
