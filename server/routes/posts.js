@@ -117,4 +117,19 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
     })
 })
 
+router.get('/getsubpost',requireLogin,(req,res)=>{
+
+    // if postedBy in following
+    Post.find({postedBy:{$in:req.user.following}})
+    .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name")
+    .sort('-createdAt')
+    .then(posts=>{
+        res.json({posts})
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+
 module.exports=router
