@@ -12,6 +12,7 @@ const NavBar = ()=>{
             return[
                 <li><Link to="/profile">Profile</Link></li>,
                 <li><Link to="/create">Create Post</Link></li>,
+                <li><Link to="/myfollowersposts">Subscribed Posts</Link></li>,
                 <li>
                     <button className="btn #c62828 red darken-3" onClick={()=>{
                         localStorage.clear()
@@ -35,7 +36,7 @@ const NavBar = ()=>{
     return(
         <nav>
             <div className="nav-wrapper white">
-                <Link to={state?"/myfollowersposts":"/login"} className="brand-logo left">Instagram</Link>
+                <Link to={state?"/":"/login"} className="brand-logo left">Instagram</Link>
                 <ul id="nav-mobile" className="right">
                     {renderList()}
                 </ul>
