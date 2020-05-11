@@ -41,8 +41,9 @@ const Profile =()=>{
             }).then(res=>res.json())
             .then(result=>{
                 console.log(result)
-                localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
-                dispatch({type:"UPDATEPIC",payload:result.pic})
+                localStorage.setItem("user",JSON.stringify({...state,photo:result.photo}))
+                dispatch({type:"UPDATEPIC",payload:result.photo})
+                window.location.reload()
             })
         
          })
@@ -50,7 +51,7 @@ const Profile =()=>{
              console.log(err)
          })
         }
-     },[image])
+     },[image]) 
      const updatePhoto = (file)=>{
          setImage(file)
      }

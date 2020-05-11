@@ -66,13 +66,14 @@ router.put('/unfollow',requireLogin,(req,res)=>{
     }
     )
 })
-
+mongoose.set('useFindAndModify', false);
 router.put('/updatepic',requireLogin,(req,res)=>{
     User.findByIdAndUpdate(req.user._id,{$set:{photo:req.body.pic}},{new:true},
         (err,result)=>{
          if(err){
-             return res.status(422).json({error:"pic canot post"})
+             return res.status(422).json({error:"pic cannot post"})
          }
+         console.log(result)
          res.json(result)
     })
 })
