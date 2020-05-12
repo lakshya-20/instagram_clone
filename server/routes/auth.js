@@ -9,10 +9,10 @@ const requireLogin = require('../middleware/requireLogin')
 const nodemailer = require('nodemailer')
 const sparkPostTransport = require('nodemailer-sparkpost-transport')
 const {SENDGRID_API,EMAIL} = require('../key')
-
+const crypto= require('crypto')
 
 const transporter = nodemailer.createTransport(sparkPostTransport({
-    'sparkPostApiKey':SENDGRID_API
+        'sparkPostApiKey':SENDGRID_API
 }))
 
 
@@ -99,14 +99,20 @@ router.post('/reset-password',(req,res)=>{
             user.expireToken = Date.now() + 3600000
             user.save().then((result)=>{
                 transporter.sendMail({
+                    from:"coderman7766@gmail.com",
                     to:user.email,
-                    from:"no-replay@insta.com",
                     subject:"password reset",
                     html:`
                     <p>You requested for password reset</p>
                     <h5>click in this <a href="${EMAIL}/reset/${token}">link</a> to reset password</h5>
                     `
-                })
+                }, (err, info) => {
+                    if (err) {
+                      console.error(err);
+                    } else {
+                      console.log(info);
+                    }
+                  })
                 res.json({message:"check your email"})
             })
 
