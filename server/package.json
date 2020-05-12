@@ -13,6 +13,10 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.12",
-    "nodemon": "^2.0.3"
+    "nodemailer": "^6.4.6",
+    "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemailer-sparkpost-transport": "^2.2.0",
+    "nodemon": "^2.0.3",
+    "sparkpost": "^2.1.4"
   }
 }

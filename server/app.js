@@ -9,7 +9,7 @@ connect.then((db) =>{
 },(err)=>{console.log(err)});
 
 const app=express()
-const PORT=5000
+const PORT=process.env.POST ||5000
 
 require('./models/user')
 require('./models/post')
