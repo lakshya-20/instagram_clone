@@ -26,7 +26,8 @@ const Routing=()=>{
       //history.push('/')
     }
     else{
-      history.push('/login')
+      if(!history.location.pathname.startsWith('/reset'))
+           history.push('/signin')
     }
   },[])
   return(

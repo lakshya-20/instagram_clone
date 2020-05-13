@@ -1,23 +1,25 @@
 import React,{useEffect,useState,useContext} from 'react'
 import {usercontext} from '../../App'
 import {useParams} from 'react-router-dom'
-const Profile =()=>{
+const Profile  = ()=>{
     const [userProfile,setProfile] = useState(null)
-    const {state,dispatch}=useContext(usercontext)
-    const {userid}=useParams()
-
+    
+    const {state,dispatch} = useContext(usercontext)
+    const {userid} = useParams()
     const [showfollow,setShowFollow] = useState(state?!state.following.includes(userid):true)
     useEffect(()=>{
-        fetch(`/user/${userid}`,{
-            headers:{
-                "Authorization":"Bearer "+localStorage.getItem("jwt")
-            }
-        }).then(res=>res.json())
-        .then(result=>{
-            console.log("result",result);
+       fetch(`/user/${userid}`,{
+           headers:{
+               "Authorization":"Bearer "+localStorage.getItem("jwt")
+           }
+       }).then(res=>res.json())
+       .then(result=>{
+           //console.log(result)
+         
             setProfile(result)
-        })
+       })
     },[])
+
 
     const followUser = ()=>{
         fetch('/follow',{
@@ -33,8 +35,8 @@ const Profile =()=>{
         .then(data=>{
         
             dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
-            localStorage.setItem("user",JSON.stringify(data))
-            setProfile((prevState)=>{
+             localStorage.setItem("user",JSON.stringify(data))
+             setProfile((prevState)=>{
                  return {
                      ...prevState,
                      user:{
@@ -60,9 +62,8 @@ const Profile =()=>{
         .then(data=>{
             
             dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
-            console.log(data)
-            localStorage.setItem("user",JSON.stringify(data))
-            console.log("ls ",localStorage.getItem("user"))
+             localStorage.setItem("user",JSON.stringify(data))
+            
              setProfile((prevState)=>{
                 const newFollower = prevState.user.followers.filter(item=>item != data._id )
                  return {
@@ -77,26 +78,30 @@ const Profile =()=>{
              
         })
     }
-
-    return(
-        <>
-        {userProfile ?
-        <div style={{maxWidth:"1000px",margin:"0px auto  "}}>
-            <div style={{display:"flex",justifyContent:"space-around",margin:"18px 0px",borderBottom:"1px solid grey"}}>
-                <div>
-                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}} 
-                    src={userProfile.user.photo}
-                    />
-                </div>
-                <div>
-                    <h4>{userProfile.user.name}</h4>
-                    <h5>{userProfile.user.email}</h5>
-                    <div style={{display:"flex",justifyContent:"space-between", width:"109%"}}>
-                        <h6>{userProfile.posts.length} posts</h6>
-                        <h6>{userProfile.user.followers.length} followers</h6>
+   return (
+       <>
+       {userProfile ?
+       <div style={{maxWidth:"550px",margin:"0px auto"}}>
+           <div style={{
+               display:"flex",
+               justifyContent:"space-around",
+               margin:"18px 0px",
+               borderBottom:"1px solid grey"
+           }}>
+               <div>
+                   <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
+                   src={userProfile.user.pic}
+                   />
+               </div>
+               <div>
+                   <h4>{userProfile.user.name}</h4>
+                   <h5>{userProfile.user.email}</h5>
+                   <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
+                       <h6>{userProfile.posts.length} posts</h6>
+                       <h6>{userProfile.user.followers.length} followers</h6>
                        <h6>{userProfile.user.following.length} following</h6>
-                    </div>
-                    {showfollow?
+                   </div>
+                   {showfollow?
                    <button style={{
                        margin:"10px"
                    }} className="btn waves-effect waves-light #64b5f6 blue darken-1"
@@ -115,23 +120,31 @@ const Profile =()=>{
                         UnFollow
                     </button>
                     }
-                </div>
-            </div>
-            <div className="gallery">
-                {
-                    userProfile.posts.map(item=>{
-                        return(
-                            <img className="item" src={item.photo} key={item._id}/>
-                        )
-                    })
-                }
-            </div>
-        
-        </div>
-        : <h2>loading...!</h2>}
+                   
+                  
 
-        </>
-    )
+               </div>
+           </div>
+     
+           <div className="gallery">
+               {
+                   userProfile.posts.map(item=>{
+                       return(
+                        <img key={item._id} className="item" src={item.photo} alt={item.title}/>  
+                       )
+                   })
+               }
+
+           
+           </div>
+       </div>
+       
+       
+       : <h2>loading...!</h2>}
+       
+       </>
+   )
 }
 
-export default Profile;
+
+export default Profile

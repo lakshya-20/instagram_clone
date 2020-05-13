@@ -40,7 +40,6 @@ const Profile =()=>{
                 })
             }).then(res=>res.json())
             .then(result=>{
-                console.log(result)
                 localStorage.setItem("user",JSON.stringify({...state,photo:result.photo}))
                 dispatch({type:"UPDATEPIC",payload:result.photo})
                 window.location.reload()

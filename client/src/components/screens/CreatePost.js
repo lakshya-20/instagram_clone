@@ -41,7 +41,6 @@ const CreatePost =()=>{
 
 
     const postDetails=()=>{
-        console.log("hj")
         const formData = new FormData();
 
         formData.append('file',image);
