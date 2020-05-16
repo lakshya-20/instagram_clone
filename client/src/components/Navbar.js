@@ -78,6 +78,7 @@ const NavBar = ()=>{
                         return <Link to={item._id !== state._id ? "/profile/"+item._id:'/profile'} onClick={()=>{
                             M.Modal.getInstance(searchModal.current).close()
                             setSearch('')
+                            setUserDetails([])
                         }}><li className="collection-item">{item.email}</li></Link>
                     })}
                 </ul>
@@ -85,6 +86,7 @@ const NavBar = ()=>{
                 <div className="modal-footer">
                     <button className="modal-close waves-effect waves-green btn-flat" onClick={()=>{
                         setSearch('')
+                        setUserDetails([])
                     }}>Close</button>
                 </div>
             </div>
