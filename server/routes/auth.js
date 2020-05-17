@@ -4,11 +4,11 @@ const mongoose=require('mongoose')
 const User = mongoose.model("User")
 const bcrypt = require('bcryptjs')
 const jwt= require('jsonwebtoken');
-const {JWT_SECRET}=require('../key')
+const {JWT_SECRET}=require('../config/key')
 const requireLogin = require('../middleware/requireLogin')
 const nodemailer = require('nodemailer')
 const sparkPostTransport = require('nodemailer-sparkpost-transport')
-const {SENDGRID_API,EMAIL} = require('../key')
+const {SENDGRID_API,EMAIL} = require('../config/key')
 const crypto= require('crypto')
 
 const transporter = nodemailer.createTransport(sparkPostTransport({
