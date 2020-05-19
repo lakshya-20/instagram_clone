@@ -15,15 +15,9 @@ const transporter = nodemailer.createTransport(sparkPostTransport({
         'sparkPostApiKey':SENDGRID_API
 }))
 
-
-router.get('/protected',requireLogin,(req,res)=>{
-    res.send('hello')
-})
-
-
 router.post('/signup',(req,res)=>{
-    const {name,email,password,pic,gender}=req.body
-    if(!email || !password || !name || !gender){
+    const {name,email,password,pic,gender,username}=req.body
+    if(!email || !password || !name || !gender || !username){
         res.status(422).json({error:"all entries required"})
     }
     User.findOne({email:email})
@@ -38,7 +32,8 @@ router.post('/signup',(req,res)=>{
                 password:hashedpassword,
                 name,
                 photo:pic,
-                gender:gender
+                gender:gender,
+                username
             })
     
             user.save()
@@ -141,6 +136,18 @@ router.post('/new-password',(req,res)=>{
    }).catch(err=>{
        console.log(err)
    })
+})
+
+router.post('/username',(req,res)=>{
+    User.findOne({username:req.body.username})
+    .then(user=>{
+        if(user){
+            return res.status(422).json({error:"User already exists with that username"})
+        }
+        return res.json({message:"username available"})
+    }).catch(err=>{
+        console.log(err)
+    })
 })
 
 

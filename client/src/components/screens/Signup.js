@@ -12,6 +12,7 @@ const Login  = ()=>{
     const [url,setUrl] = useState(null)
     const [toggleShow1,setToggleShow1]=useState(false)
     const [toggleShow2,setToggleShow2]=useState(false)
+    const [username,setUsername] = useState("")
     useEffect(()=>{
         if(url){
             uploadFields()
@@ -34,6 +35,31 @@ const Login  = ()=>{
             console.log(err)
         })
     }
+    const checkUsername = (event)=>{
+        var un=event.target.value
+        fetch('/username',{
+            method:"post",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username:un
+            })
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.error){
+               M.toast({html: data.error,classes:"#c62828 red darken-3"})
+            }
+            else{
+                setUsername(un)
+                M.toast({html:data.message,classes:"#43a047 green darken-1"})
+                
+            }
+         }).catch(err=>{
+             console.log(err)
+         })
+    }
     const uploadFields = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
@@ -53,7 +79,8 @@ const Login  = ()=>{
                 password,
                 email,
                 pic:url,
-                gender
+                gender,
+                username
             })
         }).then(res=>res.json())
         .then(data=>{
@@ -86,6 +113,11 @@ const Login  = ()=>{
             placeholder="name"
             value={name}
             onChange={(e)=>setName(e.target.value)}
+            />
+            <input
+            type="text"
+            placeholder="username"
+            onBlur={(event)=>checkUsername(event)}
             />
             <input
             type="text"
