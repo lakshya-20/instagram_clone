@@ -10,6 +10,8 @@ const Login  = ()=>{
     const [image,setImage] = useState("")
     const [gender,setGender] = useState("")
     const [url,setUrl] = useState(null)
+    const [toggleShow1,setToggleShow1]=useState(false)
+    const [toggleShow2,setToggleShow2]=useState(false)
     useEffect(()=>{
         if(url){
             uploadFields()
@@ -91,18 +93,34 @@ const Login  = ()=>{
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
             />
-            <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
-            />
-            <input
-            type="password"
-            placeholder="repassword"
-            value={repassword}
-            onChange={(e)=>setRepassword(e.target.value)}
-            />
+            <ul style={{listStyle:"none"}}>
+                <li>
+                    <input
+                    type={toggleShow1?"text":"password"}
+                    placeholder="password"
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                    style={{float:"left",width:"80%"}}
+                    />
+                </li>
+                <li>
+                    <i class="material-icons" style={{marginTop:"2px"}} onClick={(e)=>setToggleShow1(!toggleShow1)}>remove_red_eye</i>
+                </li>
+            </ul>
+            <ul style={{listStyle:"none"}}>
+                <li>
+                    <input
+                    type={toggleShow1?"text":"password"}
+                    placeholder="repassword"
+                    value={repassword}
+                    onChange={(e)=>setRepassword(e.target.value)}
+                    style={{float:"left",width:"80%"}}
+                    />
+                </li>
+                <li>
+                    <i class="material-icons" style={{marginTop:"20px"}} onClick={(e)=>setToggleShow2(!toggleShow2)}>remove_red_eye</i>
+                </li>
+            </ul>
             <div className="file-field input-field">
             <div className="btn #64b5f6 blue darken-1">
                 <span>Upload pic</span>
