@@ -54,6 +54,7 @@ const NavBar = ()=>{
         }).then(res=>res.json())
         .then(results=>{
             setUserDetails(results.user)
+            console.log(userDetails)
         })
     }
 
@@ -79,7 +80,7 @@ const NavBar = ()=>{
                             M.Modal.getInstance(searchModal.current).close()
                             setSearch('')
                             setUserDetails([])
-                        }}><li className="collection-item">{item.email}</li></Link>
+                        }}><li className="collection-item">{item.username}</li></Link>
                     })}
                 </ul>
                 </div>

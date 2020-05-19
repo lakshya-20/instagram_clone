@@ -69,6 +69,10 @@ const Login  = ()=>{
             M.toast({html:"password does match",classes:"#c62828 red darken-3",displayLength:1500})
             return
         }
+        if(username==""){
+            M.toast({html: "chhose a different username",classes:"#c62828 red darken-3"})
+            return
+        }
         fetch("/signup",{
             method:"post",
             headers:{
