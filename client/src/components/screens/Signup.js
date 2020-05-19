@@ -4,7 +4,8 @@ import M from 'materialize-css'
 const Login  = ()=>{
     const history = useHistory()
     const [name,setName] = useState("")
-    const [password,setPasword] = useState("")
+    const [password,setPassword] = useState("")
+    const [repassword,setRepassword] = useState("")
     const [email,setEmail] = useState("")
     const [image,setImage] = useState("")
     const [gender,setGender] = useState("")
@@ -34,6 +35,10 @@ const Login  = ()=>{
     const uploadFields = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+            return
+        }
+        if(password!==repassword){
+            M.toast({html:"password does match",classes:"#c62828 red darken-3",displayLength:1500})
             return
         }
         fetch("/signup",{
@@ -90,7 +95,13 @@ const Login  = ()=>{
             type="password"
             placeholder="password"
             value={password}
-            onChange={(e)=>setPasword(e.target.value)}
+            onChange={(e)=>setPassword(e.target.value)}
+            />
+            <input
+            type="password"
+            placeholder="repassword"
+            value={repassword}
+            onChange={(e)=>setRepassword(e.target.value)}
             />
             <div className="file-field input-field">
             <div className="btn #64b5f6 blue darken-1">
