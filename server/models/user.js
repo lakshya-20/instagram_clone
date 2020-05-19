@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    gender:{
+        type:String,
+        required:true
+    },
+    
     resetToken:String,
     expireToken:Date,
     photo:{

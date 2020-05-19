@@ -7,6 +7,7 @@ const Login  = ()=>{
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
     const [image,setImage] = useState("")
+    const [gender,setGender] = useState("")
     const [url,setUrl] = useState(null)
     useEffect(()=>{
         if(url){
@@ -44,7 +45,8 @@ const Login  = ()=>{
                 name,
                 password,
                 email,
-                pic:url
+                pic:url,
+                gender
             })
         }).then(res=>res.json())
         .then(data=>{
@@ -67,7 +69,7 @@ const Login  = ()=>{
         }
        
     }
-
+    
    return (
       <div className="mycard">
           <div className="card auth-card input-field">
@@ -99,6 +101,23 @@ const Login  = ()=>{
                 <input className="file-path validate" type="text" />
             </div>
             </div>
+            <p>
+            <label>Gender  </label>
+            <label>
+                <input class="with-gap" name="gender" placeholder="gender" value="male" type="radio" onChange={(e)=>setGender(e.target.value)} />
+                <span>Male</span>
+            </label>
+            <label>
+                <input class="with-gap" name="gender" placeholder="gender" value="female" type="radio" onChange={(e)=>setGender(e.target.value)} />
+                <span>Female</span>
+            </label>
+            <label>
+                <input class="with-gap" name="gender" placeholder="gender" value="other" type="radio" onChange={(e)=>setGender(e.target.value)} />
+                <span>Other</span>
+            </label>
+            </p>
+
+
             <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
             onClick={()=>PostData()}
             >
