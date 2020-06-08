@@ -70,7 +70,7 @@ const NavBar = ()=>{
                 <div className="modal-content">
                 <input
                     type="text"
-                    placeholder="search users"
+                    placeholder="search users"  
                     value={search}
                     onChange={(e)=>fetchUsers(e.target.value)}
                 />
